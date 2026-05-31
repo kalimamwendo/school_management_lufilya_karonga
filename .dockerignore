@@ -1,0 +1,11 @@
+.git
+.gitignore
+backend/__pycache__/
+backend/school_data.json
+backend/*.log
+frontend/node_modules/
+frontend/dist/
+*.pyc
+.env
+.venv/
+venv/

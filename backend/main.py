@@ -12,8 +12,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
+from backend import supabase_store
+
 
 BASE_DIR = Path(__file__).resolve().parent
+try:
+    from dotenv import load_dotenv
+
+    load_dotenv(BASE_DIR.parent / ".env")
+except ImportError:
+    pass
 DATA_FILE = BASE_DIR / "school_data.json"
 
 SENIOR_SUBJECTS = [
@@ -243,6 +251,16 @@ def seed_data() -> dict[str, Any]:
 
 
 def load_db() -> dict[str, Any]:
+    if supabase_store.enabled():
+        db = supabase_store.load_state()
+        if db is None:
+            db = seed_data()
+            seed_scores(db)
+            save_db(db)
+            return db
+        if migrate_db(db):
+            save_db(db)
+        return db
     if not DATA_FILE.exists():
         db = seed_data()
         save_db(db)
@@ -256,6 +274,9 @@ def load_db() -> dict[str, Any]:
 
 
 def save_db(db: dict[str, Any]) -> None:
+    if supabase_store.enabled():
+        supabase_store.save_state(db)
+        return
     DATA_FILE.write_text(json.dumps(db, indent=2), encoding="utf-8")
 
 
