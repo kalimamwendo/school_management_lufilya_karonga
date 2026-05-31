@@ -55,6 +55,24 @@ button { cursor: pointer; }
 .login-form { gap: 14px; }
 .login-form label { color: var(--text-blue); font-weight: 800; font-size: .9rem; }
 .login-button { width: 100%; margin-top: 4px; }
+.password-field {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+}
+
+.password-field button {
+  border: 1px solid var(--line-blue);
+  border-radius: 8px;
+  background: var(--sky-blue-soft);
+  color: var(--dark-blue);
+  padding: 0 12px;
+  font-weight: 900;
+}
+
+.password-field input {
+  min-width: 0;
+}
 .inline-notice {
   background: var(--sky-blue-soft);
   border: 1px solid var(--sky-blue-mid);

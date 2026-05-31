@@ -152,6 +152,7 @@ function App() {
 function LoginPage({ state, onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [resetMode, setResetMode] = useState(false);
   const [newPassword, setNewPassword] = useState("");
   const [loginNotice, setLoginNotice] = useState("");
@@ -195,12 +196,18 @@ function LoginPage({ state, onLogin }) {
           </label>
           <label>
             Password
-            <input value={password} onChange={(event) => setPassword(event.target.value)} type="password" placeholder="Enter password" />
+            <div className="password-field">
+              <input value={password} onChange={(event) => setPassword(event.target.value)} type={showPassword ? "text" : "password"} placeholder="Enter password" />
+              <button type="button" onClick={() => setShowPassword(!showPassword)}>{showPassword ? "Hide" : "Show"}</button>
+            </div>
           </label>
           {resetMode && (
             <label>
               New password
-              <input value={newPassword} onChange={(event) => setNewPassword(event.target.value)} type="password" placeholder="Enter new password" />
+              <div className="password-field">
+                <input value={newPassword} onChange={(event) => setNewPassword(event.target.value)} type={showPassword ? "text" : "password"} placeholder="Enter new password" />
+                <button type="button" onClick={() => setShowPassword(!showPassword)}>{showPassword ? "Hide" : "Show"}</button>
+              </div>
             </label>
           )}
           {loginNotice && <div className="inline-notice">{loginNotice}</div>}
