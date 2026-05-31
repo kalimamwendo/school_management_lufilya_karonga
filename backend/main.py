@@ -591,6 +591,11 @@ def get_state() -> dict[str, Any]:
     return build_state(load_db())
 
 
+@app.get("/api/health")
+def health() -> dict[str, str]:
+    return {"status": "ok"}
+
+
 @app.post("/api/login")
 def login(credentials: LoginIn) -> dict[str, Any]:
     db = load_db()

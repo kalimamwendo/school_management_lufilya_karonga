@@ -114,7 +114,7 @@ function App() {
   const refresh = async () => setState(await api("/state"));
 
   useEffect(() => {
-    refresh().catch(() => setNotice("Start the FastAPI server to load live school data."));
+    refresh().catch((error) => setNotice(`Could not load school data from /api/state. ${error.message}`));
   }, []);
 
   const login = (nextSession) => {
