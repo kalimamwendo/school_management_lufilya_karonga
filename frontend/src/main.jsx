@@ -153,6 +153,7 @@ function LoginPage({ state, onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
   const [resetMode, setResetMode] = useState(false);
   const [newPassword, setNewPassword] = useState("");
   const [loginNotice, setLoginNotice] = useState("");
@@ -198,15 +199,21 @@ function LoginPage({ state, onLogin }) {
             Password
             <div className="password-field">
               <input value={password} onChange={(event) => setPassword(event.target.value)} type={showPassword ? "text" : "password"} placeholder="Enter password" />
-              <button type="button" onClick={() => setShowPassword(!showPassword)}>{showPassword ? "Hide" : "Show"}</button>
+              <button type="button" aria-label={showPassword ? "Hide password" : "Show password"} onClick={(event) => {
+                event.preventDefault();
+                setShowPassword(!showPassword);
+              }}>{showPassword ? "Hide" : "Show"}</button>
             </div>
           </label>
           {resetMode && (
             <label>
               New password
               <div className="password-field">
-                <input value={newPassword} onChange={(event) => setNewPassword(event.target.value)} type={showPassword ? "text" : "password"} placeholder="Enter new password" />
-                <button type="button" onClick={() => setShowPassword(!showPassword)}>{showPassword ? "Hide" : "Show"}</button>
+                <input value={newPassword} onChange={(event) => setNewPassword(event.target.value)} type={showNewPassword ? "text" : "password"} placeholder="Enter new password" />
+                <button type="button" aria-label={showNewPassword ? "Hide new password" : "Show new password"} onClick={(event) => {
+                  event.preventDefault();
+                  setShowNewPassword(!showNewPassword);
+                }}>{showNewPassword ? "Hide" : "Show"}</button>
               </div>
             </label>
           )}

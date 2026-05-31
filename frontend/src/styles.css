@@ -67,6 +67,7 @@ button { cursor: pointer; }
   background: var(--sky-blue-soft);
   color: var(--dark-blue);
   padding: 0 12px;
+  min-width: 64px;
   font-weight: 900;
 }
 
