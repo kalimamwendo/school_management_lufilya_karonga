@@ -66,9 +66,11 @@ button { cursor: pointer; }
   border-radius: 8px;
   background: var(--sky-blue-soft);
   color: var(--dark-blue);
-  padding: 0 12px;
-  min-width: 64px;
+  padding: 0;
+  width: 46px;
   font-weight: 900;
+  display: grid;
+  place-items: center;
 }
 
 .password-field input {

@@ -5,6 +5,8 @@ import {
   Bell,
   BookOpenCheck,
   ClipboardList,
+  Eye,
+  EyeOff,
   FileSpreadsheet,
   GraduationCap,
   Home,
@@ -199,10 +201,10 @@ function LoginPage({ state, onLogin }) {
             Password
             <div className="password-field">
               <input value={password} onChange={(event) => setPassword(event.target.value)} type={showPassword ? "text" : "password"} placeholder="Enter password" />
-              <button type="button" aria-label={showPassword ? "Hide password" : "Show password"} onClick={(event) => {
+              <button type="button" title={showPassword ? "Hide password" : "Show password"} aria-label={showPassword ? "Hide password" : "Show password"} onClick={(event) => {
                 event.preventDefault();
                 setShowPassword(!showPassword);
-              }}>{showPassword ? "Hide" : "Show"}</button>
+              }}>{showPassword ? <EyeOff size={18} /> : <Eye size={18} />}</button>
             </div>
           </label>
           {resetMode && (
@@ -210,10 +212,10 @@ function LoginPage({ state, onLogin }) {
               New password
               <div className="password-field">
                 <input value={newPassword} onChange={(event) => setNewPassword(event.target.value)} type={showNewPassword ? "text" : "password"} placeholder="Enter new password" />
-                <button type="button" aria-label={showNewPassword ? "Hide new password" : "Show new password"} onClick={(event) => {
+                <button type="button" title={showNewPassword ? "Hide new password" : "Show new password"} aria-label={showNewPassword ? "Hide new password" : "Show new password"} onClick={(event) => {
                   event.preventDefault();
                   setShowNewPassword(!showNewPassword);
-                }}>{showNewPassword ? "Hide" : "Show"}</button>
+                }}>{showNewPassword ? <EyeOff size={18} /> : <Eye size={18} />}</button>
               </div>
             </label>
           )}
