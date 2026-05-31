@@ -2,27 +2,23 @@
 
 This app is deployable as one Docker web service. The Docker image builds the React frontend, installs the FastAPI backend, and serves both from port `8000`.
 
-## Required Supabase Setup
-
-1. Create a Supabase project.
-2. Run `supabase/schema.sql` in the Supabase SQL Editor.
-3. Copy your project URL and service role key.
-
 ## Render Deployment
 
 1. Push this repo to GitHub.
 2. In Render, create a new **Blueprint** from this repository, or create a Docker web service manually.
-3. Add environment variables:
+3. Use the included `render.yaml`. It sets:
 
 ```env
-USE_SUPABASE=true
-SUPABASE_URL=https://your-project-ref.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+USE_SUPABASE=false
 ```
 
 4. Deploy.
 
 The service exposes the app on port `8000` and uses `/api/state` as the health check.
+
+## Data Note
+
+With `USE_SUPABASE=false`, Render uses local JSON storage inside the container. This is fine for demos, but data may reset when Render rebuilds/restarts the service. For permanent production data, enable Supabase later.
 
 ## Local Docker Test
 

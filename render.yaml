@@ -7,8 +7,4 @@ services:
     healthCheckPath: /api/state
     envVars:
       - key: USE_SUPABASE
-        value: true
-      - key: SUPABASE_URL
-        sync: false
-      - key: SUPABASE_SERVICE_ROLE_KEY
-        sync: false
+        value: false
