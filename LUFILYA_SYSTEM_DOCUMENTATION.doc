@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Lufilya Secondary School Management System Documentation</title>
+  <style>
+    body { font-family: Arial, sans-serif; color: #172033; line-height: 1.45; }
+    h1 { color: #06224a; text-align: center; }
+    h2 { color: #0b3a75; border-bottom: 1px solid #b7dcf4; padding-bottom: 4px; }
+    h3 { color: #06224a; }
+    table { border-collapse: collapse; width: 100%; margin: 10px 0 18px; }
+    th, td { border: 1px solid #b7dcf4; padding: 8px; text-align: left; }
+    th { background: #e0f2fe; color: #06224a; }
+    .note { background: #eef8ff; border: 1px solid #b7dcf4; padding: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Lufilya Secondary School Management System</h1>
+  <p><strong>Documentation:</strong> How the system works</p>
+  <p><strong>School:</strong> Lufilya Secondary School</p>
+
+  <h2>1. System Overview</h2>
+  <p>
+    The Lufilya Secondary School Management System is a web-based application built with React for the frontend
+    and FastAPI for the backend. It helps the school manage teachers, students, fees, scores, academic reports,
+    announcements, and system activity.
+  </p>
+  <p>
+    The system uses one login page, but users are taken to different interfaces depending on their role.
+    Each interface has its own sidebar and tools.
+  </p>
+
+  <h2>2. Default Login Credentials</h2>
+  <table>
+    <tr><th>Role</th><th>Email</th><th>Password</th></tr>
+    <tr><td>Admin</td><td>lumbani@gmail.com</td><td>lum2004</td></tr>
+    <tr><td>Bursar</td><td>bursar@lufilya.edu.mw</td><td>bursar123</td></tr>
+    <tr><td>Headteacher</td><td>head@lufilya.edu.mw</td><td>head123</td></tr>
+    <tr><td>Teacher</td><td>teacher@lufilya.edu.mw</td><td>teacher123</td></tr>
+  </table>
+  <p class="note">
+    After login, every user can open the Credentials tab and change their password. The system requires
+    users to confirm the new password before saving.
+  </p>
+
+  <h2>3. Main Interfaces</h2>
+
+  <h3>3.1 Admin Interface</h3>
+  <p>The Admin manages the school setup and staff records. The Admin can:</p>
+  <ul>
+    <li>Register new teachers.</li>
+    <li>Assign junior and senior subjects to teachers.</li>
+    <li>Assign classes to teachers.</li>
+    <li>Assign roles such as Headteacher and Bursar to registered teachers.</li>
+    <li>View system activity logs.</li>
+    <li>Manage teacher credentials created during registration.</li>
+  </ul>
+
+  <h3>3.2 Teacher Interface</h3>
+  <p>The Teacher works with classes and subjects assigned by the Admin. The Teacher can:</p>
+  <ul>
+    <li>Select a class, term, and registered subject before entering scores.</li>
+    <li>Enter scores for students in the selected class.</li>
+    <li>Upload scores using an Excel or CSV file where supported.</li>
+    <li>View subject performance summaries.</li>
+    <li>See performance groups such as most performing, moderate, and least performing students.</li>
+    <li>Work only with subjects and classes assigned to that teacher.</li>
+  </ul>
+
+  <h3>3.3 Bursar Interface</h3>
+  <p>The Bursar manages students and fees. The Bursar can:</p>
+  <ul>
+    <li>Register students with full name, date of birth, village, form, sex, guardian phone, guardian email, and health status.</li>
+    <li>Generate student registration numbers automatically, for example LIF2024001.</li>
+    <li>View fees status for all registered students.</li>
+    <li>See paid, not paid, and balance information.</li>
+    <li>Update student payments.</li>
+  </ul>
+
+  <h3>3.4 Headteacher Interface</h3>
+  <p>The Headteacher monitors school performance and produces reports. The Headteacher can:</p>
+  <ul>
+    <li>View registered students.</li>
+    <li>View fee statements.</li>
+    <li>View performance by class.</li>
+    <li>Generate report cards by selecting class and term.</li>
+    <li>Use scores entered by teachers to generate reports.</li>
+    <li>Write announcements.</li>
+  </ul>
+
+  <h2>4. Subjects</h2>
+  <h3>4.1 Junior Secondary Subjects - JCE, Forms 1 and 2</h3>
+  <p>
+    English Language, Chichewa, Mathematics, Biology, Chemistry, Physics, Geography, History,
+    Social &amp; Life Studies, Bible Knowledge, Agriculture, Computer Studies, Business Studies,
+    Home Economics, Technical Studies.
+  </p>
+
+  <h3>4.2 Senior Secondary Subjects - MSCE, Forms 3 and 4</h3>
+  <p>
+    English, Chichewa, Mathematics, Biology, Chemistry, Physics, Geography, History,
+    Social &amp; Life Studies, Bible Knowledge, Agriculture, Computer Studies, Business Studies,
+    Home Economics, Technical Drawing.
+  </p>
+
+  <h2>5. Grading Rules</h2>
+  <h3>5.1 JCE Grading - Forms 1 and 2</h3>
+  <table>
+    <tr><th>Marks</th><th>Grade</th><th>Meaning</th></tr>
+    <tr><td>80 - 100</td><td>A</td><td>Excellent</td></tr>
+    <tr><td>70 - 79</td><td>B</td><td>Very Good</td></tr>
+    <tr><td>55 - 69</td><td>C</td><td>Good</td></tr>
+    <tr><td>40 - 54</td><td>D</td><td>Average / Pass</td></tr>
+    <tr><td>0 - 39</td><td>F</td><td>Fail</td></tr>
+  </table>
+  <p>
+    A JCE student passes when they pass at least six subjects and English Language is included among the passed subjects.
+  </p>
+
+  <h3>5.2 MSCE Grading - Forms 3 and 4</h3>
+  <table>
+    <tr><th>Marks</th><th>Grade</th><th>Category</th></tr>
+    <tr><td>80 - 100</td><td>1</td><td>Distinction</td></tr>
+    <tr><td>70 - 79</td><td>2</td><td>Distinction</td></tr>
+    <tr><td>65 - 69</td><td>3</td><td>Credit</td></tr>
+    <tr><td>60 - 64</td><td>4</td><td>Credit</td></tr>
+    <tr><td>55 - 59</td><td>5</td><td>Credit</td></tr>
+    <tr><td>50 - 54</td><td>6</td><td>Credit</td></tr>
+    <tr><td>45 - 49</td><td>7</td><td>Pass</td></tr>
+    <tr><td>40 - 44</td><td>8</td><td>Pass</td></tr>
+    <tr><td>0 - 39</td><td>9</td><td>Fail</td></tr>
+  </table>
+  <p>
+    For MSCE, the system calculates points using the best six subjects. The valid points range is 6 to 48.
+    A student must also pass English.
+  </p>
+
+  <h2>6. Reports</h2>
+  <p>
+    Report cards are generated from scores entered by teachers. The Headteacher selects the class and term,
+    then the system prepares learner performance reports showing subjects, scores, grades, ranks, remarks,
+    position in class, school announcements, next term details, and account details.
+  </p>
+
+  <h2>7. Layout and Navigation</h2>
+  <ul>
+    <li>Each interface has a left sidebar with tabs.</li>
+    <li>The sidebar can be hidden or shown using the Hide menu / Show menu button.</li>
+    <li>The header is fixed and does not move when scrolling.</li>
+    <li>The working area scrolls independently under the fixed header.</li>
+    <li>The system shows greetings based on time, such as Good morning, Good afternoon, or Good evening.</li>
+  </ul>
+
+  <h2>8. Running the System Locally</h2>
+  <p>To run the system locally, start the FastAPI server and open the browser at:</p>
+  <p><strong>http://127.0.0.1:8000</strong></p>
+  <p>Default command:</p>
+  <p><code>python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000</code></p>
+
+  <h2>9. Important Notes</h2>
+  <ul>
+    <li>The Admin should register teachers before assigning subjects, classes, or roles.</li>
+    <li>Teachers can only see subjects and classes assigned to them.</li>
+    <li>Bursar records student fees and updates payments.</li>
+    <li>Headteacher generates reports using teacher-entered scores.</li>
+    <li>Users should change default passwords after first login.</li>
+  </ul>
+</body>
+</html>
