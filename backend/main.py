@@ -228,6 +228,7 @@ def seed_data() -> dict[str, Any]:
             {"id": "U003", "role": "headteacher", "name": "Headteacher", "email": "head@lufilya.edu.mw", "password": "head123", "entity_id": None},
             {"id": "U004", "role": "teacher", "name": "Ambonishe Moreen", "email": "moreen@lufilya.edu.mw", "password": "teacher123", "entity_id": "T001"},
             {"id": "U005", "role": "teacher", "name": "Mphatso Banda", "email": "mphatso@lufilya.edu.mw", "password": "teacher123", "entity_id": "T002"},
+            {"id": "U006", "role": "teacher", "name": "Default Teacher", "email": "teacher@lufilya.edu.mw", "password": "teacher123", "entity_id": "T001"},
         ],
         "activities": [],
         "settings": {
@@ -303,9 +304,10 @@ def migrate_db(db: dict[str, Any]) -> bool:
         {"role": "admin", "name": "System Admin", "email": "lumbani@gmail.com", "password": "lum2004", "entity_id": None},
         {"role": "bursar", "name": "School Bursar", "email": "bursar@lufilya.edu.mw", "password": "bursar123", "entity_id": None},
         {"role": "headteacher", "name": "Headteacher", "email": "head@lufilya.edu.mw", "password": "head123", "entity_id": None},
+        {"role": "teacher", "name": "Default Teacher", "email": "teacher@lufilya.edu.mw", "password": "teacher123", "entity_id": "T001"},
     ]
     for default_user in default_users:
-        if not any(user.get("role") == default_user["role"] for user in users):
+        if not any(user.get("email", "").lower() == default_user["email"].lower() for user in users):
             users.append({"id": next_id(users, "U"), **default_user})
             changed = True
     admin_user = next((user for user in users if user.get("role") == "admin"), None)

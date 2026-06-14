@@ -11,6 +11,8 @@ import {
   GraduationCap,
   Home,
   LogOut,
+  PanelLeftClose,
+  PanelLeftOpen,
   Printer,
   School,
   Search,
@@ -23,6 +25,23 @@ import {
 import "./styles.css";
 
 const API = "/api";
+
+function greetingForNow() {
+  const hour = new Date().getHours();
+  if (hour < 12) return "Good morning";
+  if (hour < 17) return "Good afternoon";
+  return "Good evening";
+}
+
+function lastNameFromUser(session, displayName) {
+  const parts = displayName.trim().split(/\s+/).filter(Boolean);
+  const lastName = parts.at(-1) || displayName;
+  const genericNames = new Set(["admin", "bursar", "headteacher", "teacher"]);
+  if (genericNames.has(lastName.toLowerCase())) {
+    return session.email?.split("@")[0] || lastName;
+  }
+  return lastName;
+}
 
 const roleConfig = {
   admin: {
@@ -242,12 +261,16 @@ function EntityShell({ session, state, notice, setNotice, refresh, onLogout }) {
   const role = session.role;
   const config = roleConfig[role];
   const [activeTab, setActiveTab] = useState(config.tabs[0].id);
+  const [sidebarHidden, setSidebarHidden] = useState(false);
   const ActiveIcon = config.icon;
+  const ToggleSidebarIcon = sidebarHidden ? PanelLeftOpen : PanelLeftClose;
   const currentTeacher = state.teachers.find((teacher) => teacher.id === session.entity_id);
   const displayName = currentTeacher?.full_name || session.name || config.label;
+  const greetingName = lastNameFromUser(session, displayName);
+  const greeting = greetingForNow();
 
   return (
-    <div className={`app-shell ${role}-shell`}>
+    <div className={`app-shell ${role}-shell ${sidebarHidden ? "sidebar-hidden" : ""}`}>
       <aside className="sidebar">
         <div className="brand">
           <School />
@@ -283,11 +306,20 @@ function EntityShell({ session, state, notice, setNotice, refresh, onLogout }) {
             <p>{state.settings.school_name}</p>
             <h1>
               <ActiveIcon size={30} />
-              {config.label} Interface
+              {greeting} {greetingName}
             </h1>
             <strong className="welcome-line">Welcome {displayName}</strong>
           </div>
           <div className="top-actions">
+            <button
+              type="button"
+              className="sidebar-toggle"
+              onClick={() => setSidebarHidden((value) => !value)}
+              title={sidebarHidden ? "Show sidebar" : "Hide sidebar"}
+            >
+              <ToggleSidebarIcon size={17} />
+              {sidebarHidden ? "Show menu" : "Hide menu"}
+            </button>
             <button onClick={() => window.print()}>
               <Printer size={17} />
               Print
@@ -309,15 +341,21 @@ function EntityShell({ session, state, notice, setNotice, refresh, onLogout }) {
 function Credentials({ session, setNotice }) {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const submit = async (event) => {
     event.preventDefault();
+    if (newPassword !== confirmPassword) {
+      setNotice("New password and confirm password must match.");
+      return;
+    }
     await api("/change-password", {
       method: "POST",
       body: JSON.stringify({ user_id: session.user_id, current_password: currentPassword, new_password: newPassword }),
     });
     setCurrentPassword("");
     setNewPassword("");
+    setConfirmPassword("");
     setNotice("Password changed successfully.");
   };
 
@@ -331,6 +369,7 @@ function Credentials({ session, setNotice }) {
       <form className="stack profile-form" onSubmit={submit}>
         <input required type="password" placeholder="Current password" value={currentPassword} onChange={(event) => setCurrentPassword(event.target.value)} />
         <input required type="password" placeholder="New password" value={newPassword} onChange={(event) => setNewPassword(event.target.value)} />
+        <input required type="password" placeholder="Confirm new password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} />
         <button className="primary"><ShieldCheck size={17} /> Update Password</button>
       </form>
     </section>
